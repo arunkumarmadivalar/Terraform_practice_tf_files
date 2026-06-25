@@ -1,0 +1,28 @@
+resource "aws_vpc" "practice_vpc" {
+  cidr_block  = "10.0.0.0/16"
+  enable_dns_support = "true"
+  enable_dns_hostnames = "true"
+
+  tags = {
+    name = "practice_vpc"
+  }
+}
+
+resource "aws_subnet" "pucblic_sub" {
+  vpc_id = aws_vpc.practice_vpc.id
+  cidr_block = "10.0.1.0/24"
+  map_public_ip_on_launch = true
+
+  tags = {
+    name = "pucblic_sub"
+  }
+}
+
+resource "aws_subnet" "private_sub" {
+  vpc_id = aws_vpc.practice_vpc.id
+  cidr_block = "10.0.2.0/24"
+
+  tags = {
+    name = "private_sub"
+  }
+}
