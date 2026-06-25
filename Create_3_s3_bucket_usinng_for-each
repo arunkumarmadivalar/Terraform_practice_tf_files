@@ -1,0 +1,11 @@
+resource "aws_s3_bucket" "practice_bucket" {
+  for_each = toset(["arun-dev-bucket-1999", "arun-test-bucket-1999", "arun-prod-bucket-1999"])
+  bucket = each.key
+     
+
+      tags = {
+    Name = "dev"
+    Environment = "Dev"
+
+  }
+}
