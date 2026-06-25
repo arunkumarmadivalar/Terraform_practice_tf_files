@@ -1,0 +1,25 @@
+variable "aws_region" {
+  type = string
+  default = "us-east-1"
+}
+
+variable "aws_instance_type" {
+  type = string
+  default = "t3.micro"
+}
+
+variable "aws_ami_id" {
+  type = string
+  default = "ami-08f44e8eca9095668"
+}
+
+
+resource "aws_instance" "web_server" {
+  ami           = var.aws_ami_id # Example Amazon Linux 2 AMI
+  instance_type = var.aws_instance_type
+  region = var.aws_region
+
+  tags = {
+    Name = "web-server"
+  }
+}
