@@ -1,0 +1,4 @@
+resource "aws_iam_user" "the-accounts" {
+  for_each = toset(["dev-user", "test-user", "prod-user"])
+  name     = each.key
+}
