@@ -1,0 +1,45 @@
+resource "aws_vpc" "practice_vpc" {
+  cidr_block  = "10.0.0.0/16"
+  enable_dns_support = "true"
+  enable_dns_hostnames = "true"
+
+  tags = {
+    name = "practice_vpc"
+  }
+}
+
+resource "aws_security_group" "practice_security_group" {
+  name        = "practice_security_group"
+  description = "Allow TLS inbound traffic and all outbound traffic"
+  vpc_id      = aws_vpc.practice_vpc.id
+
+  
+
+  ingress {
+    description = "SSH"
+    from_port         = 22
+    protocol       = "tcp"
+    to_port           = 22
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTP"
+    from_port  = 80
+    to_port  = 80
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description = "Allow all outbound traffic"
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "practice_security_group"
+  }
+}
