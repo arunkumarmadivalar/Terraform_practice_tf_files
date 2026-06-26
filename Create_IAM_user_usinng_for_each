@@ -1,1 +1,12 @@
 
+resource "aws_iam_user" "practice_users" {
+  for_each = toset(["arun-dev-user-1999", "arun-test-user-1999", "arun-prod-user-1999"])
+  bucket = each.key
+     
+
+      tags = {
+    Name = "dev"
+    Environment = "Dev"
+
+  }
+}
